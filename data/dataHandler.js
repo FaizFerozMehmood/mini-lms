@@ -16,8 +16,19 @@ export async function getRawData() {
 export async function getCategories() {
   try {
     const allCourses = await getRawData();
-    const categories = allCourses.map((data) => data.category);
-    console.log(categories);
+    const categories = {};
+    console.log(allCourses);
+    allCourses.forEach((course) => {
+      if (!categories[course.category]) {
+        categories[course.category] = [];
+      }
+      categories[course.category].push(course);
+    });
+    // const categories = al
+    // lCourses.map((data) => data.category);
+
+    // console.log(categories);
+    return categories
   } catch (error) {
     console.log("error fetch categoreis..!");
   }

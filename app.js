@@ -33,26 +33,57 @@ if (!window.location.hash) {
   window.location.hash = "#home";
 }
 async function renderHomePage() {
-  // try {
-  //     const courseCategories = await getCategories()
-
-  //     console.log("categories fetched", courseCategories)
-  // } catch (error) {
-  //     console.log("error fetching catordory in app",error)
-  // }
+  const heroSec = `<div class="p-5 mb-4 bg-light rounded-3 text-center">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Learn Anything, Anytime.</h1>
+        <p class="col-md-8 fs-4 mx-auto">
+          Explore thousands of courses taught by expert instructors. 
+          Start your learning journey today!
+        </p>
+        <a href="#courses" class="btn btn-primary btn-lg" type="button">
+          Browse All Courses
+        </a>
+      </div>
+    </div>
+  `;
+  let categoreisSec = "";
+  let trendingSECHTML = "";
   try {
-    const trendingCourses = await getTrendingCourses();
-    console.log(trendingCourses);
-    let trendingSECHTML = "<h1>welcome to the trending courese</h1>";
+    const [trendingCourses, courseCategories] = await Promise.all([
+      getTrendingCourses(),
+      getCategories(),
+    ]);
+    console.log("trendingCourses", trendingCourses);
+    console.log("courseCategories", courseCategories);
+    trendingSECHTML = ` <div class="mx-auto bg-light mt-2" style="width: 60;">
+  
+  <h1>Welcome To The Trending Courses!</h1>
+</div>`;
     trendingSECHTML += '<div class="d-flex flex-wrap justify-content-center">';
     trendingCourses.forEach((data) => {
-      trendingSECHTML += `<div class="card text-center mx-2 my-2" style="width: 18rem;">
+      trendingSECHTML += `<div class="card text-center mx-2 my-2 bg-light" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">${data.title}</h5>
     <p class="card-text">${data.short_description}</p>
 <a href="#course=${data.id}">View Course</a>  </div>
 </div>`;
     });
-    return trendingSECHTML;
-  } catch (error) {}
+    trendingSECHTML += "</div>";
+    categoreisSec += ` 
+      <div class="text-center mx-auto mt-5 pt-4 border-top">
+        <h2 class="mb-4"> Browse Categories</h2>
+      </div>`;
+    categoreisSec += `<div class="d-flex flex-wrap justify-content-center mb-5">`;
+    for (let category in courseCategories) {
+      const count = courseCategories[category].length;
+      categoreisSec += `
+             <a href="#category=${category}" class="btn btn-outline-dark m-2">
+                ${category} (${count})
+            </a>`;
+    }
+    categoreisSec += `</div>`;
+    return heroSec + trendingSECHTML + categoreisSec;
+  } catch (error) {
+    console.error("data fetching failed", error);
+  }
 }
