@@ -45,3 +45,7 @@ export async function getTrendingCourses() {
     return [];
   }
 }
+
+// export async function getAllCouses(){
+
+// }

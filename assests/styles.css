@@ -1,0 +1,28 @@
+/* @media (max-width: 575.98px){ */
+    body {
+      padding-bottom: 80px;
+    }
+
+/* } */
+.course-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.course-card:hover {
+    transform: translateY(-5px) scale(1.02); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+    z-index: 10; 
+}
+
+.course-image {
+    height: 12rem; 
+    object-fit: cover;
+}
+
+.card-info .badge {
+    font-size: 0.85em;
+    padding: 0.5em 0.75em;
+}
+
