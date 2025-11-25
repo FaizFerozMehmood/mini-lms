@@ -6,9 +6,9 @@ import {
 
 async function routers() {
   const hash = window.location.hash;
-  console.log(hash);
+  // console.log(hash);
   const aapContainer = document.getElementById("app");
-  console.log(aapContainer);
+  // console.log(aapContainer);
   aapContainer.innerHTML = "";
 
   switch (hash) {
@@ -25,7 +25,8 @@ async function routers() {
     default:
       if (hash.startsWith("#course=")) {
         const coureID = hash.split("=")[1];
-        aapContainer.innerHTML = `<h1>Course Detail Page</h1><p>Course ID: ${coureID}</p>`;
+        aapContainer.innerHTML = await renderCourseDetailPage(coureID);
+        // aapContainer.innerHTML = `<h1>Course Detail Page</h1><p>Course ID: ${coureID}</p>`;
       }
   }
 }
@@ -37,7 +38,7 @@ if (!window.location.hash) {
   window.location.hash = "#home";
 }
 async function renderHomePage() {
-  const heroSec = `<div class="p-5 mb-4 bg-light rounded-3 text-center">
+  const heroSec = `<div id="heroSection" class="p-5 mb-4 bg-light rounded-3 text-center">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">Learn Anything, Anytime.</h1>
         <p class="col-md-8 fs-4 mx-auto">
@@ -65,7 +66,7 @@ async function renderHomePage() {
 </div> `;
     trendingSECHTML += '<div class="d-flex flex-wrap justify-content-center">';
     trendingCourses.forEach((data) => {
-      trendingSECHTML += `<div class="card text-center mx-2 my-2 bg-light" style="width: 18rem;">
+      trendingSECHTML += `<div class="card text-center mx-2 my-2 bg-light" id="TrendingCARD" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">${data.title}</h5>
     <p class="card-text">${data.short_description}</p>
@@ -77,11 +78,11 @@ async function renderHomePage() {
       <div class="text-center mx-auto mt-5 pt-4 border-top">
         <h2 class="mb-4"> Browse Categories</h2>
       </div>`;
-    categoreisSec += `<div class="d-flex flex-wrap justify-content-center mb-5">`;
+    categoreisSec += `<div  class="d-flex flex-wrap justify-content-center mb-5">`;
     for (let category in courseCategories) {
       const count = courseCategories[category].length;
       categoreisSec += `
-             <a href="#category=${category}" class="btn btn-outline-dark m-2">
+             <a id="categorySec" href="#category=${category}" class="btn btn-outline-dark m-2">
                 ${category} (${count})
             </a>`;
     }
@@ -95,21 +96,6 @@ async function renderCoursesPage() {
   let courseCards = "";
   try {
     const courses = await getRawData();
-    //     courseCards += '<div class="d-flex flex-wrap justify-content-center">';
-    //     courses.forEach((data) => {
-    //       console.log(data.title)
-    //       courseCards += `
-    //       <div class="card mx-3 mt-2" style="width: 18rem;">
-    //   <img src=${data.image_url} class="card-img-top" alt="...">
-    //   <div class="card-body">
-    //     <h5 class="card-title">${data.title}</h5>
-    //     <p class="card-text">${data.description}.</p>
-    //    <a href="#course=${data.id}" class="btn btn-primary">View Course</a>
-    //   </div>
-    // </div>
-    //       `;
-    //     });
-    //     courseCards += `</div>`;
 
     courseCards += '<div class="d-flex flex-wrap justify-content-center">';
     courses.forEach((data) => {
@@ -147,4 +133,52 @@ async function renderCoursesPage() {
     return courseCards;
   } catch (error) {}
 }
-// renderCoursesPage();
+async function renderCourseDetailPage(CourseId) {
+  let cardDetails = "";
+  try {
+    console.log("CourseId===>", CourseId);
+    const courses = await getRawData();
+    console.log("courses=====>", courses);
+    const filteredData = courses.filter((data) => data.id == CourseId);
+
+    cardDetails += '<div class="d-flex flex-wrap justify-content-center">';
+    filteredData.forEach((data) => {
+      console.log(data?.lessons);
+      const lessonHtml = data?.lessons
+        .map((lsn) => {
+          return `<li><a href="#lesson=${lsn.lesson_id}" class="card-link">${
+            lsn.title || "Lesson Title"
+          }</a></li>`;
+        })
+        .join("");
+      console.log(lessonHtml);
+      cardDetails += `
+      <div class="card course-card mx-3 mt-4 mb-4" style="width: 18rem;">
+        
+        <img src="${
+          data.image_url
+        }" class="card-img-top course-image" alt="Course Image">
+        
+        <div class="card-body">
+          <h5 class="card-title fw-bold">${data.description}</h5>
+          
+                
+          
+             <ul class="list-unstyled"> 
+        ${lessonHtml || "No lessons available."}
+      </ul>
+
+          
+          <a href="#course=${
+            data.id
+          }" class="btn btn-primary w-100">Start Course</a>
+        </div>
+      </div>
+      `;
+    });
+    cardDetails += `</div>`;
+    return cardDetails;
+
+    console.log(filteredData);
+  } catch (error) {}
+}

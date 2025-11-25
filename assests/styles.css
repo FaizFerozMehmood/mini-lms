@@ -26,3 +26,38 @@
     padding: 0.5em 0.75em;
 }
 
+
+#TrendingCARD{
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    overflow: hidden;
+    border: 1px solid #c98b8b;
+
+
+
+}
+#TrendingCARD:hover{
+    transform: translateY(-5px) scale(1.02); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+    z-index: 10; 
+
+
+
+}
+#heroSection{
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+
+}
+#heroSection:hover{
+    transform: translateY(-5px) scale(1.02); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+    /* z-index: 10;  */
+}
+
+#categorySec{
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+
+}
+#categorySec:hover{
+      transform: translateY(-5px) scale(1.02); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
