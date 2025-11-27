@@ -26,8 +26,45 @@ async function routers() {
       if (hash.startsWith("#course=")) {
         const coureID = hash.split("=")[1];
         aapContainer.innerHTML = await renderCourseDetailPage(coureID);
-        // aapContainer.innerHTML = `<h1>Course Detail Page</h1><p>Course ID: ${coureID}</p>`;
+        const courses = await getRawData();
+        const currentCourse = courses.find((c) => c.id == coureID);
+        updateCourseProgress(currentCourse);
       }
+
+      if (hash.startsWith("#lesson=")) {
+        const lessonId = hash.split("=")[1];
+        aapContainer.innerHTML = await renderLessonPage(lessonId);
+        console.log("lessonID===>", lessonId);
+        const saved = localStorage.getItem(lessonId);
+        const safeId = lessonId.replace(/:/g, "\\:");
+
+        const box = document.querySelector(`#checkbox-${safeId}`);
+        console.log(box);
+        console.log("saved===>", saved);
+        if (box && saved === "true") {
+          box.checked = true;
+        }
+      }
+  }
+}
+function updateCourseProgress(course) {
+  const tottlLessons = course.lessons.length;
+  let completed = 0;
+  course.lessons.forEach((isn) => {
+    if (localStorage.getItem(isn.lesson_id) === "true") {
+      completed++;
+    }
+  });
+  const progressPercent = Math.round((completed / tottlLessons) * 100);
+
+  const progressBar = document.querySelector(
+    `.progress-bar[data-course="${course.id}"]`
+  );
+
+  if (progressBar) {
+    progressBar.style.width = progressPercent + "%";
+    progressBar.setAttribute("aria-valuenow", progressPercent);
+    progressBar.innerText = progressPercent + "%";
   }
 }
 // routers()
@@ -61,8 +98,8 @@ async function renderHomePage() {
     console.log("trendingCourses", trendingCourses);
     console.log("courseCategories", courseCategories);
     trendingSECHTML = `
-    <div class="d-flex flex-column align-items-center justify-content-center mb-5 text-center p-3 p-sm-4">
-    <h1 class="display-5 fw-bold">Welcome To The Trending Courses!</h1>
+    <div class="d-flex flex-column align-items-center justify-content-center mb-2 text-center p-3 p-sm-4 border-top">
+    <h1 class="display-5 fw-bold">Trending Courses</h1>
 </div> `;
     trendingSECHTML += '<div class="d-flex flex-wrap justify-content-center">';
     trendingCourses.forEach((data) => {
@@ -138,29 +175,34 @@ async function renderCourseDetailPage(CourseId) {
   try {
     console.log("CourseId===>", CourseId);
     const courses = await getRawData();
+
     console.log("courses=====>", courses);
     const filteredData = courses.filter((data) => data.id == CourseId);
 
-    cardDetails += '<div class="d-flex flex-wrap justify-content-center">';
+    cardDetails +=
+      '<div  id="heroSection" class="p-5 mb-4 bg-light rounded-3 text-center">';
+    cardDetails += '<div class="container-fluid py-5">';
     filteredData.forEach((data) => {
-      console.log(data?.lessons);
+      console.log("leassons==>", data?.lessons);
       const lessonHtml = data?.lessons
         .map((lsn) => {
-          return `<li><a href="#lesson=${lsn.lesson_id}" class="card-link">${
+          return `<li class="p-1"><a href="#lesson=${
+            lsn.lesson_id
+          }" class="card-link btn btn-primary w-100"">${
             lsn.title || "Lesson Title"
           }</a></li>`;
         })
         .join("");
       console.log(lessonHtml);
       cardDetails += `
-      <div class="card course-card mx-3 mt-4 mb-4" style="width: 18rem;">
+      <div >
         
         <img src="${
           data.image_url
-        }" class="card-img-top course-image" alt="Course Image">
+        }" class="card-img-top course-image p-10"alt="Course Image">
         
         <div class="card-body">
-          <h5 class="card-title fw-bold">${data.description}</h5>
+          <h5 class="card-title p-10 mt-3 fw-bold">${data.description}</h5>
           
                 
           
@@ -169,16 +211,81 @@ async function renderCourseDetailPage(CourseId) {
       </ul>
 
           
-          <a href="#course=${
-            data.id
-          }" class="btn btn-primary w-100">Start Course</a>
+          <div class="progress mt-4 mb-3">
+<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-course="${
+        data.id
+      }">0%</div>
+</div>
         </div>
       </div>
+      </div>
+
       `;
     });
     cardDetails += `</div>`;
     return cardDetails;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-    console.log(filteredData);
+async function renderLessonPage(lessonId) {
+  let lessonHtml = "";
+  try {
+    const courses = await getRawData();
+    console.log(courses.lesson);
+    courses.forEach((data) => {
+      // console.log(data.lessons)
+      const filterLesson = data.lessons.filter(
+        (lsn) => lsn.lesson_id === lessonId
+      );
+      console.log(filterLesson);
+      // if(filterLesson)
+      filterLesson.length > 0
+        ? filterLesson.forEach((sbq) => {
+            lessonHtml += `
+        <h1>${sbq.title}</h1>
+        <h4>${sbq.text_content}</h4>
+        <div class="form-check">
+<input 
+  class="form-check-input"
+  type="checkbox"
+  id="checkbox-${sbq.lesson_id}"
+  data-lesson="${sbq.lesson_id}"
+>
+  <label class="form-check-label" for="checkbox-${sbq.lesson_id}">
+    completed
+  </label>
+</div>
+<div class="container-fluid d-flex flex-wrap justify-content-center">
+  <iframe
+width="%"
+height="205"
+src=${sbq.video_url}
+title="YouTube video player"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+referrerpolicy="strict-origin-when-cross-origin"
+allowfullscreen
+></iframe>
+</div>
+        `;
+          })
+        : "";
+      // getCheckBoxData(lessonId)
+    });
+    return lessonHtml;
   } catch (error) {}
 }
+// https://www.youtube.com/embed/W6NZfCO5SIk
+
+document.addEventListener("change", (e) => {
+  if (e.target.matches(".form-check-input")) {
+    const id = e.target.dataset.lesson;
+    const done = e.target.checked;
+    localStorage.setItem(`${id}`, done);
+
+    console.log("id=>", id);
+    console.log("compledted=>", done);
+  }
+});
