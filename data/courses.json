@@ -1,0 +1,347 @@
+[
+  {
+    "id": "js01",
+    "title": "Modern JavaScript Essentials",
+    "category": "Web Development",
+    "level": "Intermediate",
+    "description": "A deep dive into ES6+ features like Promises, Async/Await, and modern module systems, designed to make you a highly efficient JavaScript developer.",
+    "short_description": "Master asynchronous JavaScript and ES6 features.",
+    "is_trending": true,
+    "image_url": "./assests/images/javascript.png",
+    "lessons": [
+      {
+        "lesson_id": "js01:l1",
+        "title": "Setting Up Your Development Environment",
+        "content_url": "/data/content/js01/l1_content.html",
+        "video_url": "https://www.youtube.com/embed/W6NZfCO5SIk",
+        "duration_min": 15,
+        "text_content": "In this lesson, you will learn how to properly set up a JavaScript development environment. We cover installing VS Code, choosing extensions, configuring Node.js, and understanding how to run JavaScript files using the terminal."
+      },
+      {
+        "lesson_id": "js01:l2",
+        "title": "Understanding Arrow Functions and 'this'",
+        "content_url": "/data/content/js01/l2_content.html",
+        "video_url": "https://www.youtube.com/embed/22fyYvxz-do",
+        "duration_min": 25,
+        "text_content": "Arrow functions offer a concise syntax and a lexical 'this' binding. This lesson explores how arrow functions differ from traditional functions and how they help avoid issues with 'this' in callbacks."
+      },
+      {
+        "lesson_id": "js01:l3",
+        "title": "Asynchronous JavaScript: Promises & Fetch",
+        "content_url": "/data/content/js01/l3_content.html",
+        "video_url": "https://www.youtube.com/embed/PoRJizFvM7s",
+        "duration_min": 35,
+        "text_content": "Learn how Promises work, how to chain .then() calls, handle errors using .catch(), and make API calls using the Fetch API. This lesson teaches the core of modern asynchronous JavaScript."
+      },
+      {
+        "lesson_id": "js01:l4",
+        "title": "Async/Await Deep Dive",
+        "content_url": "/data/content/js01/l4_content.html",
+        "video_url": "https://www.youtube.com/embed/V_Kr9OSfDeU",
+        "duration_min": 28,
+        "text_content": "Async/Await makes asynchronous code easier to read. In this lesson, you will learn how to convert promise chains into clean async functions and handle API errors using try/catch."
+      },
+      {
+        "lesson_id": "js01:l5",
+        "title": "Modules & Import/Export",
+        "content_url": "/data/content/js01/l5_content.html",
+        "video_url": "https://www.youtube.com/embed/cRHQNNcYf6s",
+        "duration_min": 22,
+        "text_content": "Discover how JavaScript modules work. Learn how to structure code across multiple files using export and import statements, making your code more reusable and maintainable."
+      }
+    ],
+    "quiz": [
+      {
+        "question_id": "js01:q1",
+        "text": "Which keyword is used to declare a variable with block scope that cannot be reassigned?",
+        "options": ["var", "let", "const", "static"],
+        "correct_index": 2
+      },
+      {
+        "question_id": "js01:q2",
+        "text": "What does a Promise resolve into when successful?",
+        "options": ["A State", "A Value", "An Error", "A Callback"],
+        "correct_index": 1
+      }
+    ]
+  },
+
+  {
+    "id": "css05",
+    "title": "Advanced CSS Layouts (Flexbox & Grid)",
+    "category": "Design",
+    "level": "Beginner",
+    "description": "Master modern responsive design techniques using CSS Grid and Flexbox for complex, real-world layouts.",
+    "short_description": "Build responsive interfaces effortlessly.",
+    "is_trending": false,
+    "image_url": "./assests/images/cssd.jpg",
+    "lessons": [
+      {
+        "lesson_id": "css05:l1",
+        "title": "Introduction to Flexbox Containers",
+        "content_url": "/data/content/css05/l1_content.html",
+        "video_url": "https://www.youtube.com/embed/fYq5PXgSsbE",
+        "duration_min": 20,
+        "text_content": "This lesson introduces Flexbox, a layout model that helps align items efficiently. You will learn about flex containers, flex items, and how to activate flex behavior using display:flex."
+      },
+      {
+        "lesson_id": "css05:l2",
+        "title": "Flexbox Alignment & Ordering",
+        "content_url": "/data/content/css05/l2_content.html",
+        "video_url": "https://www.youtube.com/embed/JJSoEo8JSnc",
+        "duration_min": 25,
+        "text_content": "Learn how to align elements along the main and cross axis using justify-content and align-items. This lesson also covers ordering items and controlling their direction with flex-direction."
+      },
+      {
+        "lesson_id": "css05:l3",
+        "title": "CSS Grid: Full Guide",
+        "content_url": "/data/content/css05/l3_content.html",
+        "video_url": "https://www.youtube.com/embed/EFafSYg-PkI",
+        "duration_min": 30,
+        "text_content": "CSS Grid is a powerful two-dimensional layout system. You will learn about grid-template-columns, rows, gap, fr units, and how to build professional responsive grid structures."
+      },
+      {
+        "lesson_id": "css05:l4",
+        "title": "Responsive Layouts with Grid + Flexbox",
+        "content_url": "/data/content/css05/l4_content.html",
+        "video_url": "https://www.youtube.com/embed/68O6eOGAGqA",
+        "duration_min": 27,
+        "text_content": "This lesson shows how Flexbox and Grid can work together to create fully responsive layouts. You will use media queries to adapt page structure for different screen sizes."
+      }
+    ],
+    "quiz": [
+      {
+        "question_id": "css05:q1",
+        "text": "Which CSS property is primarily used to align items along the main axis in Flexbox?",
+        "options": ["align-items", "justify-content", "align-content", "flex-direction"],
+        "correct_index": 1
+      }
+    ]
+  },
+
+  {
+    "id": "react10",
+    "title": "React Fundamentals & Hooks Mastery",
+    "category": "Web Development",
+    "level": "Beginner",
+    "description": "Learn the fundamentals of React including components, props, state, and essential hooks like useEffect and useState.",
+    "short_description": "Master React components and hooks.",
+    "is_trending": true,
+    "image_url": "./assests/images/react.jpg",
+    "lessons": [
+      {
+        "lesson_id": "react10:l1",
+        "title": "React Components & JSX",
+        "content_url": "/data/content/react10/l1_content.html",
+        "video_url": "https://www.youtube.com/embed/SqcY0GlETPk",
+        "duration_min": 18,
+        "text_content": "This lesson explains JSX syntax and how components work in React. You will learn how functional components return UI and how JSX compiles to JavaScript."
+      },
+      {
+        "lesson_id": "react10:l2",
+        "title": "State & Props Explained",
+        "content_url": "/data/content/react10/l2_content.html",
+        "video_url": "https://www.youtube.com/embed/9U3IhLAnSxM",
+        "duration_min": 22,
+        "text_content": "Understand how props are used for data passing and how state handles component-level data. You will see real examples of interactive UI updates."
+      },
+      {
+        "lesson_id": "react10:l3",
+        "title": "Understanding useState & useEffect",
+        "content_url": "/data/content/react10/l3_content.html",
+        "video_url": "https://www.youtube.com/embed/0ZJgIjIuY7U",
+        "duration_min": 30,
+        "text_content": "Learn the most essential hooks—useState for state updates and useEffect for running side effects such as API calls or event listeners."
+      },
+      {
+        "lesson_id": "react10:l4",
+        "title": "React Router Basics",
+        "content_url": "/data/content/react10/l4_content.html",
+        "video_url": "https://www.youtube.com/embed/Ul3y1LXxzdU",
+        "duration_min": 26,
+        "text_content": "React Router helps build multi-page experiences. This lesson covers routing, navigation, and dynamic URL parameters."
+      },
+      {
+        "lesson_id": "react10:l5",
+        "title": "Context API & useReducer",
+        "content_url": "/data/content/react10/l5_content.html",
+        "video_url": "https://www.youtube.com/embed/kYk-NWvr1Zc",
+        "duration_min": 28,
+        "text_content": "Learn global state management using Context API and useReducer. You will explore actions, dispatch, and reducers to manage complex state."
+      }
+    ],
+    "quiz": [
+      {
+        "question_id": "react10:q1",
+        "text": "Which hook is used to handle side effects in React?",
+        "options": ["useState", "useEffect", "useMemo", "useRef"],
+        "correct_index": 1
+      },
+      {
+        "question_id": "react10:q2",
+        "text": "React components must return:",
+        "options": ["A string", "A DOM element", "JSX", "HTML"],
+        "correct_index": 2
+      }
+    ]
+  },
+
+  {
+    "id": "html07",
+    "title": "Complete HTML5 Masterclass",
+    "category": "Web Development",
+    "level": "Beginner",
+    "description": "Learn HTML5 from the ground up including semantic tags, forms, media embedding, and structuring professional webpages.",
+    "short_description": "Build clean and semantic webpage structures.",
+    "is_trending": false,
+    "image_url": "./assests/images/html.jpg",
+    "lessons": [
+      {
+        "lesson_id": "html07:l1",
+        "title": "HTML Document Structure",
+        "content_url": "/data/content/html07/l1_content.html",
+        "video_url": "https://www.youtube.com/embed/qz0aGYrrlhU",
+        "duration_min": 16,
+        "text_content": "Learn the basic structure of an HTML document including doctype, html, head, and body. This lesson builds the foundation for all future HTML topics."
+      },
+      {
+        "lesson_id": "html07:l2",
+        "title": "Semantic HTML Tags",
+        "content_url": "/data/content/html07/l2_content.html",
+        "video_url": "https://www.youtube.com/embed/kGW8Al_cga4",
+        "duration_min": 20,
+        "text_content": "Semantic tags describe meaning, not appearance. You will learn header, nav, section, article, footer, and why semantic HTML improves SEO and accessibility."
+      },
+      {
+        "lesson_id": "html07:l3",
+        "title": "HTML Forms & Validations",
+        "content_url": "/data/content/html07/l3_content.html",
+        "video_url": "https://www.youtube.com/embed/fNcJuPIZ2WE",
+        "duration_min": 25,
+        "text_content": "This lesson teaches how to build forms using input, textarea, select, and built-in HTML validation attributes such as required and minlength."
+      },
+      {
+        "lesson_id": "html07:l4",
+        "title": "Embedding Images, Videos & Audio",
+        "content_url": "/data/content/html07/l4_content.html",
+        "video_url": "https://www.youtube.com/embed/HcOc7P5BMi4",
+        "duration_min": 23,
+        "text_content": "Learn how to embed media files using img, video, and audio tags. You will also explore attributes like controls, autoplay, and responsive image techniques."
+      }
+    ],
+    "quiz": [
+      {
+        "question_id": "html07:q1",
+        "text": "Which HTML tag represents independent self-contained content?",
+        "options": ["<section>", "<aside>", "<article>", "<main>"],
+        "correct_index": 2
+      }
+    ]
+  },
+
+  {
+    "id": "node03",
+    "title": "Node.js & Express Crash Course",
+    "category": "Backend",
+    "level": "Intermediate",
+    "description": "Learn backend development using Node.js, Express routing, API creation, and working with middleware and JSON data.",
+    "short_description": "Build APIs with Node.js and Express.",
+    "is_trending": true,
+    "image_url": "./assests/images/node.png",
+    "lessons": [
+      {
+        "lesson_id": "node03:l1",
+        "title": "Setting Up Node.js Environment",
+        "content_url": "/data/content/node03/l1_content.html",
+        "video_url": "https://www.youtube.com/embed/TlB_eWDSMt4",
+        "duration_min": 17,
+        "text_content": "Start by installing Node.js and learning how the runtime works. This lesson covers npm, package.json, and how to run JavaScript files in a server environment."
+      },
+      {
+        "lesson_id": "node03:l2",
+        "title": "Express Routing Basics",
+        "content_url": "/data/content/node03/l2_content.html",
+        "video_url": "https://www.youtube.com/embed/gnsO8-xJ8rs",
+        "duration_min": 25,
+        "text_content": "Learn how Express handles routing using app.get(), app.post(), and route parameters. This lesson helps you build multipage APIs with ease."
+      },
+      {
+        "lesson_id": "node03:l3",
+        "title": "Middleware Explained",
+        "content_url": "/data/content/node03/l3_content.html",
+        "video_url": "https://www.youtube.com/embed/lY6icfhap2o",
+        "duration_min": 21,
+        "text_content": "Middleware functions run before route handlers. You will learn built-in middleware, custom middleware, next(), and its role in authentication and logging."
+      },
+      {
+        "lesson_id": "node03:l4",
+        "title": "Building REST APIs",
+        "content_url": "/data/content/node03/l4_content.html",
+        "video_url": "https://www.youtube.com/embed/pKd0Rpw7O48",
+        "duration_min": 28,
+        "text_content": "This lesson teaches CRUD operations (Create, Read, Update, Delete) using Express and JSON data. You will build your first REST API step by step."
+      }
+    ],
+    "quiz": [
+      {
+        "question_id": "node03:q1",
+        "text": "Which method is used to define a GET route in Express?",
+        "options": ["app.route()", "app.get()", "express.get()", "server.get()"],
+        "correct_index": 1
+      }
+    ]
+  },
+
+  {
+    "id": "py02",
+    "title": "Python for Beginners",
+    "category": "Programming",
+    "level": "Beginner",
+    "description": "Start coding with Python by understanding variables, loops, functions, and real project applications.",
+    "short_description": "Kickstart programming with Python.",
+    "is_trending": false,
+    "image_url": "./assests/images/python.png",
+    "lessons": [
+      {
+        "lesson_id": "py02:l1",
+        "title": "Variables & Data Types",
+        "content_url": "/data/content/py02/l1_content.html",
+        "video_url": "https://www.youtube.com/embed/kqtD5dpn9C8",
+        "duration_min": 14,
+        "text_content": "Learn how Python stores data using variables and the different data types like int, float, string, and boolean. This is your first step into Python programming."
+      },
+      {
+        "lesson_id": "py02:l2",
+        "title": "Loops & Conditions",
+        "content_url": "/data/content/py02/l2_content.html",
+        "video_url": "https://www.youtube.com/embed/4F2m91eKmts",
+        "duration_min": 21,
+        "text_content": "Understand how while and for loops work and how conditions using if, elif, and else help control program flow depending on logic."
+      },
+      {
+        "lesson_id": "py02:l3",
+        "title": "Functions & Parameters",
+        "content_url": "/data/content/py02/l3_content.html",
+        "video_url": "https://www.youtube.com/embed/NSbOtYzIQI0",
+        "duration_min": 24,
+        "text_content": "Learn how to define functions using 'def', pass parameters, return values, and reuse code efficiently in your Python programs."
+      },
+      {
+        "lesson_id": "py02:l4",
+        "title": "Working with Lists & Dictionaries",
+        "content_url": "/data/content/py02/l4_content.html",
+        "video_url": "https://www.youtube.com/embed/cVAmwANi5Wo",
+        "duration_min": 26,
+        "text_content": "Lists and dictionaries are powerful data structures. In this lesson, you will learn how to create, update, loop through, and manipulate them."
+      }
+    ],
+    "quiz": [
+      {
+        "question_id": "py02:q1",
+        "text": "Which keyword is used for creating a function in Python?",
+        "options": ["func", "def", "function", "lambda"],
+        "correct_index": 1
+      }
+    ]
+  }
+]
