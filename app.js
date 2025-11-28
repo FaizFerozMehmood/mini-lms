@@ -45,7 +45,12 @@ async function routers() {
           box.checked = true;
         }
       }
+     if (hash.startsWith("#category=")) {
+        const coureID = hash.split("=")[1];
+        aapContainer.innerHTML = await renderCategoryPage(coureID);
+     }   
   }
+  
 }
 function updateCourseProgress(course) {
   const tottlLessons = course.lessons.length;
@@ -212,7 +217,7 @@ async function renderCourseDetailPage(CourseId) {
 
           
           <div class="progress mt-4 mb-3">
-<div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-course="${
+<div class="progress-bar" role="progressbar" style="width: 0%; min-width: 30px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-course="${
         data.id
       }">0%</div>
 </div>
@@ -289,3 +294,29 @@ document.addEventListener("change", (e) => {
     console.log("compledted=>", done);
   }
 });
+
+const renderCategoryPage = async (id) => {
+  let categoryHtml =""
+  const dedeed = decodeURIComponent(id)
+  console.log(dedeed)
+  const categoreis = await getCategories();
+console.log("data by id",categoreis[dedeed]) 
+
+categoreis[dedeed].forEach((d)=>{
+  categoryHtml+='<div class="d-flex p-4 flex-wrap justify-content-center">'
+categoryHtml+= `
+<div class="card course-card p-3 " style="width: 18rem;">
+  <img src=${d.image_url} class="card-img-top course-image" alt="...">
+  <div class="card-body ">
+    <h5 class="card-title">${d.category}</h5>
+    <p class="card-text txtx ">${d.description}</p>
+    <a href="#" class="btn btn-primary ">Explore Lessons</a>
+  </div>
+</div>
+`
+})
+categoryHtml+='</div>'
+return categoryHtml
+
+};
+
