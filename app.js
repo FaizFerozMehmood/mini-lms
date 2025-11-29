@@ -20,7 +20,7 @@ async function routers() {
       aapContainer.innerHTML = await renderCoursesPage();
       break;
     case "#dashboard":
-      aapContainer.innerHTML = "<h1>Helo welcom to the dashboard page!</h1>";
+      aapContainer.innerHTML = renderDashboard();
       break;
     default:
       if (hash.startsWith("#course=")) {
@@ -94,7 +94,7 @@ async function renderHomePage() {
           Start your learning journey today!
         </p>
         <a href="#courses" class="btn btn-primary btn-lg" type="button">
-          Browse All Courses
+          Explore All Courses
         </a>
       </div>
     </div>
@@ -392,7 +392,7 @@ async function renderLessonPage(lessonId) {
           <label class="form-check-label ms-2" for="checkbox-${sbq.lesson_id}">
             **Mark as Completed**
 
-            
+
           </label>
         </div>
 
@@ -501,4 +501,52 @@ document.addEventListener("click", async function (e) {
       alert("Failed!");
     }
   }
-});
+})
+
+
+function renderDashboard(){
+
+  let dashboardHtml=`
+  <div class="container my-5">
+  <h2 class="mb-4">Dashboard Overview</h2>
+
+  <div   class="row g-4">
+    
+    
+    <div  class="col-md-3 ">
+      <div id ="d" class="card shadow-sm text-center p-3 bg-secondary text-white ">
+        <h6 class=" mb-1 text-muted ">Courses Enrolled</h6>
+        <h3 id="coursesCount">0</h3>
+      </div>
+    </div>
+
+   
+    <div class="col-md-3">
+      <div id ="d" class="card shadow-sm text-center p-3 bg-warning text-dark"">
+        <h6 class="text-muted mb-1">Progress</h6>
+        <h3 id="progressPercent">0%</h3>
+      </div>
+    </div>
+
+    
+    <div class="col-md-3">
+      <div  id ="d" class="card shadow-sm text-center p-3 bg-info text-white">
+        <h6 class="text-muted mb-1">Last Lesson</h6>
+        <h5 id="lastLesson">N/A</h5>
+      </div>
+    </div>
+
+
+    <div class="col-md-3">
+      <div  id ="d" class="card shadow-sm text-center p-3 bg-success text-white">
+        <h6 class="text-muted mb-1">Quiz Score</h6>
+        <h3 id="quizScore">—</h3>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  `
+  return dashboardHtml
+}
