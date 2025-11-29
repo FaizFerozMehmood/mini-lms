@@ -17,7 +17,7 @@ export async function getCategories() {
   try {
     const allCourses = await getRawData();
     const categories = {};
-    console.log(allCourses);
+    // console.log(allCourses);
     allCourses.forEach((course) => {
       if (!categories[course.category]) {
         categories[course.category] = [];
@@ -46,6 +46,7 @@ export async function getTrendingCourses() {
   }
 }
 
-// export async function getAllCouses(){
-
-// }
+export async function getQuizzes(){
+ const courses = await getRawData()
+ console.log(courses)
+}

@@ -67,3 +67,36 @@
     font-size: 0.85em;
     padding: 0.5em 0.75em;
 }
+
+#list:hover{
+    transform: translateY(-5px) scale(1.01); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+    z-index: 100;
+}
+
+
+
+.bg-light-success {
+    background-color: #d4edda !important; 
+}
+
+.bg-light-danger {
+    background-color: #f8d7da !important;
+}
+
+.list-group-item a.btn-outline-dark {
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.5rem;
+}
+
+.list-group-item a.btn-outline-dark:hover {
+    background-color: var(--bs-primary); 
+    border-color: var(--bs-primary);
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+.progress-bar span {
+    color: #343a40;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}

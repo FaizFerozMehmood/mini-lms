@@ -30,6 +30,13 @@ async function routers() {
         const currentCourse = courses.find((c) => c.id == coureID);
         updateCourseProgress(currentCourse);
       }
+      if (hash.startsWith("#quiz=")) {
+        const coureID = hash.split("=")[1];
+        aapContainer.innerHTML = await renderQuizpage(coureID);
+        // const courses = await getRawData();
+        // const currentCourse = courses.find((c) => c.id == coureID);
+        // updateCourseProgress(currentCourse);
+      }
 
       if (hash.startsWith("#lesson=")) {
         const lessonId = hash.split("=")[1];
@@ -45,12 +52,11 @@ async function routers() {
           box.checked = true;
         }
       }
-     if (hash.startsWith("#category=")) {
+      if (hash.startsWith("#category=")) {
         const coureID = hash.split("=")[1];
         aapContainer.innerHTML = await renderCategoryPage(coureID);
-     }   
+      }
   }
-  
 }
 function updateCourseProgress(course) {
   const tottlLessons = course.lessons.length;
@@ -165,8 +171,12 @@ async function renderCoursesPage() {
           <a href="#course=${
             data.id
           }" class="btn btn-primary w-100">Start Course</a>
+           <a href="#quiz=${
+             data.id
+           }" class="btn btn-primary w-100 mt-2">Take Quiz</a>
         </div>
       </div>
+      
       `;
     });
     courseCards += `</div>`;
@@ -176,7 +186,53 @@ async function renderCoursesPage() {
   } catch (error) {}
 }
 async function renderCourseDetailPage(CourseId) {
+  const savedScore = JSON.parse(localStorage.getItem("lastQuizScore"));
+
   let cardDetails = "";
+  let restHtml = "";
+  //  const savedScore = JSON.parse(localStorage.getItem("lastQuizScore"));
+
+  if (savedScore) {
+    const statusClass =
+      savedScore.percentage >= 50
+        ? "border-success bg-light-success"
+        : "border-danger bg-light-danger";
+    const statusText =
+      savedScore.percentage >= 50
+        ? "Passed 🎉"
+        : "You failed, but never give up, dude!";
+
+    restHtml += `
+      <div class="container py-3">
+        <div class="card shadow-sm border ${statusClass} mx-auto" style="max-width: 800px;">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-3 fw-bold">${
+              " Your Last Quiz Result=>  " + savedScore.ccourseId ||
+              "Last Quiz Result"
+            }</h3>
+            <div class="row text-center">
+              <div class="col-4">
+                <p class="mb-0 text-muted">Score</p>
+                <h4 class="fw-bold text-primary">${savedScore.correct}/${
+      savedScore.total
+    }</h4>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-muted">Percentage</p>
+                <h4 class="fw-bold text-info">${savedScore.percentage}%</h4>
+              </div>
+              <div class="col-4">
+                <p class="mb-0 text-muted">Status</p>
+                <h5 class="fw-bold ${
+                  savedScore.percentage >= 50 ? "text-success" : "text-danger"
+                }">${statusText}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
   try {
     console.log("CourseId===>", CourseId);
     const courses = await getRawData();
@@ -184,61 +240,112 @@ async function renderCourseDetailPage(CourseId) {
     console.log("courses=====>", courses);
     const filteredData = courses.filter((data) => data.id == CourseId);
 
-    cardDetails +=
-      '<div  id="heroSection" class="p-5 mb-4 bg-light rounded-3 text-center">';
-    cardDetails += '<div class="container-fluid py-5">';
+    if (filteredData.length === 0) {
+      return '<div class="alert alert-warning text-center fw-bold mt-5" role="alert">Course not found. Please check the Course ID.</div>';
+    }
+
+    cardDetails += '<div class="container pb-5">';
+
     filteredData.forEach((data) => {
       console.log("leassons==>", data?.lessons);
+
       const lessonHtml = data?.lessons
         .map((lsn) => {
-          return `<li class="p-1"><a href="#lesson=${
-            lsn.lesson_id
-          }" class="card-link btn btn-primary w-100"">${
-            lsn.title || "Lesson Title"
-          }</a></li>`;
+          return `
+            <li class="list-group-item px-0 py-2 border-0 border-bottom">
+              <a href="#lesson=${
+                lsn.lesson_id
+              }" class="btn btn-outline-dark btn-sm d-flex justify-content-between align-items-center w-100 text-start">
+                <span class="text-truncate">${
+                  lsn.title || "Lesson Title"
+                }</span>
+                <i class="bi bi-chevron-right"></i>
+              </a>
+            </li>`;
         })
         .join("");
+
       console.log(lessonHtml);
+
       cardDetails += `
-      <div >
-        
-        <img src="${
-          data.image_url
-        }" class="card-img-top course-image p-10"alt="Course Image">
-        
-        <div class="card-body">
-          <h5 class="card-title p-10 mt-3 fw-bold">${data.description}</h5>
-          
-                
-          
-             <ul class="list-unstyled"> 
-        ${lessonHtml || "No lessons available."}
-      </ul>
+        <div class="card shadow-lg mx-auto border-0" style="max-width: 900px;">
+          <div class="row g-0">
 
-          
-          <div class="progress mt-4 mb-3">
-<div class="progress-bar" role="progressbar" style="width: 0%; min-width: 30px;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-course="${
-        data.id
-      }">0%</div>
-</div>
+            <div class="col-md-5 d-flex align-items-stretch bg-light rounded-start p-3">
+              <div class="p-3 w-100 d-flex justify-content-center align-items-center">
+                <img src="${
+                  data.image_url
+                }" class="img-fluid rounded-3 shadow-sm border" alt="Course Image">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="card-body p-4">
+
+                <h3 class="card-title fw-bolder mb-3 text-primary">${
+                  data.description
+                }</h3>
+                <p class="text-muted fst-italic">An insightful look into the course curriculum.</p>
+
+                <h5 class="mt-4 mb-2 text-dark">Course Progress</h5>
+                <div class="progress mb-4 rounded-pill" style="height: 30px;">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" data-course="${
+                    data.id
+                  }">
+                    <span class="fw-bold">0% Complete</span>
+                  </div>
+                </div>
+
+                <h5 class="card-subtitle mb-3 text-dark border-bottom pb-2 pt-2"><i class="bi bi-list-task me-2"></i>Lessons Outline</h5>
+                <ul class="list-group list-group-flush">
+                  ${
+                    lessonHtml ||
+                    '<li class="list-group-item text-center text-muted fst-italic py-3">No lessons have been added to this course yet.</li>'
+                  }
+                </ul>
+
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
-
       `;
     });
+
     cardDetails += `</div>`;
-    return cardDetails;
+    return restHtml + cardDetails;
   } catch (error) {
-    console.error(error);
+    console.error("Error in renderCourseDetailPage:", error);
+    return '<div class="alert alert-danger text-center fw-bold mt-5" role="alert">An unexpected error occurred loading the course details. Please try again later.</div>';
   }
 }
+const renderCategoryPage = async (id) => {
+  let categoryHtml = "";
+  const dedeed = decodeURIComponent(id);
+  console.log(dedeed);
+  const categoreis = await getCategories();
+  console.log("data by id", categoreis[dedeed]);
 
+  categoreis[dedeed].forEach((d) => {
+    categoryHtml += '<div class="d-flex p-4 flex-wrap justify-content-center">';
+    categoryHtml += `
+<div class="card course-card p-3 " style="width: 18rem;">
+  <img src=${d.image_url} class="card-img-top course-image" alt="...">
+  <div class="card-body ">
+    <h5 class="card-title">${d.category}</h5>
+    <p class="card-text txtx ">${d.description}</p>
+    <a href="#course=${d.id}" class="btn btn-primary ">Explore Lessons</a>
+  </div>
+</div>
+`;
+  });
+  categoryHtml += "</div>";
+  return categoryHtml;
+};
 async function renderLessonPage(lessonId) {
   let lessonHtml = "";
   try {
     const courses = await getRawData();
-    console.log(courses.lesson);
+    console.log(courses);
     courses.forEach((data) => {
       // console.log(data.lessons)
       const filterLesson = data.lessons.filter(
@@ -249,30 +356,51 @@ async function renderLessonPage(lessonId) {
       filterLesson.length > 0
         ? filterLesson.forEach((sbq) => {
             lessonHtml += `
-        <h1>${sbq.title}</h1>
-        <h4>${sbq.text_content}</h4>
-        <div class="form-check">
-<input 
-  class="form-check-input"
-  type="checkbox"
-  id="checkbox-${sbq.lesson_id}"
-  data-lesson="${sbq.lesson_id}"
->
-  <label class="form-check-label" for="checkbox-${sbq.lesson_id}">
-    completed
-  </label>
-</div>
-<div class="container-fluid d-flex flex-wrap justify-content-center">
-  <iframe
-width="%"
-height="205"
-src=${sbq.video_url}
-title="YouTube video player"
-frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-referrerpolicy="strict-origin-when-cross-origin"
-allowfullscreen
-></iframe>
+<div class="container mt-4 mb-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <header class="mb-4 pb-2 border-bottom">
+        <h1 class="display-4 text-primary">${sbq.title}</h1>
+      </header>
+      <section class="mb-4">
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="${sbq.video_url}"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+      <section class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="card-title text-secondary">Lesson Content</h4>
+          <p class="card-text">${sbq.text_content}</p>
+        </div>
+      </section>
+      <section class="d-flex justify-content-end align-items-center bg-light p-3 rounded shadow-sm">
+        <div class="form-check form-switch fs-5">
+          <input 
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="checkbox-${sbq.lesson_id}"
+            data-lesson="${sbq.lesson_id}"
+          >
+          <label class="form-check-label ms-2" for="checkbox-${sbq.lesson_id}">
+            **Mark as Completed**
+
+            
+          </label>
+        </div>
+
+
+      </section>
+
+    </div>
+  </div>
 </div>
         `;
           })
@@ -295,28 +423,82 @@ document.addEventListener("change", (e) => {
   }
 });
 
-const renderCategoryPage = async (id) => {
-  let categoryHtml =""
-  const dedeed = decodeURIComponent(id)
-  console.log(dedeed)
-  const categoreis = await getCategories();
-console.log("data by id",categoreis[dedeed]) 
+const renderQuizpage = async (id) => {
+  let quizHtml = "";
+  const courses = await getRawData();
+  const course = courses.find((c) => c.id === id);
 
-categoreis[dedeed].forEach((d)=>{
-  categoryHtml+='<div class="d-flex p-4 flex-wrap justify-content-center">'
-categoryHtml+= `
-<div class="card course-card p-3 " style="width: 18rem;">
-  <img src=${d.image_url} class="card-img-top course-image" alt="...">
-  <div class="card-body ">
-    <h5 class="card-title">${d.category}</h5>
-    <p class="card-text txtx ">${d.description}</p>
-    <a href="#" class="btn btn-primary ">Explore Lessons</a>
-  </div>
-</div>
-`
-})
-categoryHtml+='</div>'
-return categoryHtml
-
+  course?.quiz.forEach((q) => {
+    quizHtml += `
+      <h6 class ="mt-3">${q.question_id} => ${q.text}</h6>
+      <ul class="list-group"">
+        ${q.options
+          .map(
+            (opt, idx) =>
+              `<li class="option list-group-item" id="list" data-question="${q.question_id}" data-index="${idx}">${opt}</li>`
+          )
+          .join("")}
+      </ul>
+    `;
+  });
+  quizHtml += `<button type="button" class="btn btn-success m-2" id="submitQuiz">Submit Quiz</button>`;
+  return quizHtml;
 };
 
+// let score = {}
+let quizScore = {};
+
+document.addEventListener("click", async function (e) {
+  // console.log(e)
+  if (e.target.classList.contains("option")) {
+    const quesId = e.target.dataset.question;
+    const clickInd = Number(e.target.dataset.index);
+
+    const courses = await getRawData();
+    // console.log("id",courses.id)
+    let question;
+
+    for (const c of courses) {
+      question = c.quiz.find((q) => q.question_id === quesId);
+      if (question) break;
+    }
+
+    if (!question) return;
+
+    const isCorrect = clickInd === question.correct_index;
+    quizScore[quesId] = isCorrect;
+
+    e.target.style.background = isCorrect ? "green" : "red";
+
+    const siblings = e.target.parentElement.querySelectorAll(".option");
+    siblings.forEach((li) => (li.style.pointerEvents = "none"));
+  }
+
+  if (e.target.id === "submitQuiz") {
+    const totalQuestions = Object.keys(quizScore).length;
+    const correctAnswers = Object.values(quizScore).filter((v) => v).length;
+    const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+    const courseId = window.location.hash.split("=")[1];
+    // console.log(quizId)
+
+    localStorage.setItem(
+      "lastQuizScore",
+      JSON.stringify({
+        ccourseId: courseId,
+        total: totalQuestions,
+        correct: correctAnswers,
+        percentage,
+      })
+    );
+
+    alert(
+      `You answered ${correctAnswers} out of ${totalQuestions} correctly. Score: ${percentage}%`
+    );
+
+    if (percentage >= 50) {
+      alert("Passed!");
+    } else {
+      alert("Failed!");
+    }
+  }
+});

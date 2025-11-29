@@ -340,7 +340,9 @@
         "question_id": "py02:q1",
         "text": "Which keyword is used for creating a function in Python?",
         "options": ["func", "def", "function", "lambda"],
-        "correct_index": 1
+        "correct_index": 1,
+          "text_content": "Learn how to define functions using the def keyword, pass parameters, return values, and understand why functions help you reuse code and write cleaner programs."
+
       }
     ]
   }
