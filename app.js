@@ -4,6 +4,7 @@ import {
   getRawData,
 } from "./data/dataHandler.js";
 
+
 async function routers() {
   const hash = window.location.hash;
   // console.log(hash);
@@ -86,19 +87,18 @@ if (!window.location.hash) {
   window.location.hash = "#home";
 }
 async function renderHomePage() {
-  const heroSec = `<div id="heroSection" class="p-5 mb-4 bg-light rounded-3 text-center">
-      <div class="container-fluid py-5">
-        <h1 class="display-5 fw-bold">Learn Anything, Anytime.</h1>
-        <p class="col-md-8 fs-4 mx-auto">
-          Explore thousands of courses taught by expert instructors. 
-          Start your learning journey today!
-        </p>
-        <a href="#courses" class="btn btn-primary btn-lg" type="button">
-          Explore All Courses
-        </a>
-      </div>
-    </div>
-  `;
+  const heroSec =`<div id="heroSection" class="hero-bg-image bg-dark text-white text-center">
+  <div class="bg-overlay"></div>
+  <div class="container py-5 py-md-6 position-relative z-1">
+    <h1 class="display-3 fw-bolder mb-3">Learn Anything, Anytime.</h1>
+    <p class="col-lg-8 fs-4 mx-auto mb-4 opacity-75">
+      Explore thousands of courses taught by expert instructors. Start your learning journey today!
+    </p>
+    <a href="#courses" class="btn btn-primary btn-lg px-4 py-2 fw-bold" type="button">
+      Explore All Courses
+    </a>
+  </div>
+</div>`
   let categoreisSec = "";
   let trendingSECHTML = "";
   try {
@@ -199,8 +199,8 @@ async function renderCourseDetailPage(CourseId) {
         : "border-danger bg-light-danger";
     const statusText =
       savedScore.percentage >= 50
-        ? "Passed 🎉"
-        : "You failed, but never give up, dude!";
+        ? "Passed 💥"
+        : "You failed, but never give up, dude! 💖";
 
     restHtml += `
       <div class="container py-3">

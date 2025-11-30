@@ -51,19 +51,38 @@
       }
     ],
     "quiz": [
-      {
-        "question_id": "js01:q1",
-        "text": "Which keyword is used to declare a variable with block scope that cannot be reassigned?",
-        "options": ["var", "let", "const", "static"],
-        "correct_index": 2
-      },
-      {
-        "question_id": "js01:q2",
-        "text": "What does a Promise resolve into when successful?",
-        "options": ["A State", "A Value", "An Error", "A Callback"],
-        "correct_index": 1
-      }
-    ]
+  {
+    "question_id": "js01:q1",
+    "text": "Which keyword is used to declare a variable with block scope that cannot be reassigned?",
+    "options": ["var", "let", "const", "static"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "js01:q2",
+    "text": "What does a Promise resolve into when successful?",
+    "options": ["A State", "A Value", "An Error", "A Callback"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "js01:q3",
+    "text": "Which method is used to handle errors in Promises?",
+    "options": [".final()", ".failure()", ".catch()", ".error()"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "js01:q4",
+    "text": "Async/Await is syntactic sugar for what?",
+    "options": ["Loops", "Promises", "Callbacks", "Generators"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "js01:q5",
+    "text": "Which statement allows you to export a function in ES modules?",
+    "options": ["module.export()", "export default", "require()", "import()"],
+    "correct_index": 1
+  }
+]
+
   },
 
   {
@@ -110,13 +129,38 @@
       }
     ],
     "quiz": [
-      {
-        "question_id": "css05:q1",
-        "text": "Which CSS property is primarily used to align items along the main axis in Flexbox?",
-        "options": ["align-items", "justify-content", "align-content", "flex-direction"],
-        "correct_index": 1
-      }
-    ]
+  {
+    "question_id": "css05:q1",
+    "text": "Which CSS property is primarily used to align items along the main axis in Flexbox?",
+    "options": ["align-items", "justify-content", "align-content", "flex-direction"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "css05:q2",
+    "text": "Which unit is commonly used in CSS Grid to represent a flexible fraction of space?",
+    "options": ["px", "%", "fr", "em"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "css05:q3",
+    "text": "Which property enables a container to use Flexbox?",
+    "options": ["display: grid", "display: flex", "container: flex", "flex-enable: true"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "css05:q4",
+    "text": "Which property defines rows in CSS Grid?",
+    "options": ["grid-template-columns", "grid-template-rows", "grid-rows", "template-rows"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "css05:q5",
+    "text": "Which of the following helps make layouts responsive?",
+    "options": ["!important", "overflow", "media queries", "float"],
+    "correct_index": 2
+  }
+]
+
   },
 
   {
@@ -171,19 +215,38 @@
       }
     ],
     "quiz": [
-      {
-        "question_id": "react10:q1",
-        "text": "Which hook is used to handle side effects in React?",
-        "options": ["useState", "useEffect", "useMemo", "useRef"],
-        "correct_index": 1
-      },
-      {
-        "question_id": "react10:q2",
-        "text": "React components must return:",
-        "options": ["A string", "A DOM element", "JSX", "HTML"],
-        "correct_index": 2
-      }
-    ]
+  {
+    "question_id": "react10:q1",
+    "text": "Which hook is used to handle side effects in React?",
+    "options": ["useState", "useEffect", "useMemo", "useRef"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "react10:q2",
+    "text": "React components must return:",
+    "options": ["A string", "A DOM element", "JSX", "HTML"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "react10:q3",
+    "text": "Which hook updates component state?",
+    "options": ["useEffect", "useState", "useCallback", "useMemo"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "react10:q4",
+    "text": "Which library is commonly used for routing in React?",
+    "options": ["Axios", "React Router", "Redux", "Next.js"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "react10:q5",
+    "text": "The Context API is mainly used to:",
+    "options": ["Manage global state", "Style components", "Render lists", "Add animations"],
+    "correct_index": 0
+  }
+]
+
   },
 
   {
@@ -230,13 +293,38 @@
       }
     ],
     "quiz": [
-      {
-        "question_id": "html07:q1",
-        "text": "Which HTML tag represents independent self-contained content?",
-        "options": ["<section>", "<aside>", "<article>", "<main>"],
-        "correct_index": 2
-      }
-    ]
+  {
+    "question_id": "html07:q1",
+    "text": "Which HTML tag represents independent self-contained content?",
+    "options": ["<section>", "<aside>", "<article>", "<main>"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "html07:q2",
+    "text": "Which tag is used to embed an image?",
+    "options": ["<media>", "<img>", "<picture>", "<image>"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "html07:q3",
+    "text": "Which attribute makes a form input required?",
+    "options": ["must", "validate", "required", "needed"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "html07:q4",
+    "text": "Which tag is semantic?",
+    "options": ["<div>", "<span>", "<section>", "<b>"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "html07:q5",
+    "text": "Which element contains metadata in HTML?",
+    "options": ["<body>", "<meta>", "<head>", "<header>"],
+    "correct_index": 2
+  }
+]
+
   },
 
   {
@@ -283,13 +371,38 @@
       }
     ],
     "quiz": [
-      {
-        "question_id": "node03:q1",
-        "text": "Which method is used to define a GET route in Express?",
-        "options": ["app.route()", "app.get()", "express.get()", "server.get()"],
-        "correct_index": 1
-      }
-    ]
+  {
+    "question_id": "node03:q1",
+    "text": "Which method is used to define a GET route in Express?",
+    "options": ["app.route()", "app.get()", "express.get()", "server.get()"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "node03:q2",
+    "text": "Which file defines dependencies in Node.js?",
+    "options": ["node.config", "package.json", "modules.json", "config.js"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "node03:q3",
+    "text": "Middleware functions have access to which argument?",
+    "options": ["req, res, next", "route, next", "server, req", "event, callback"],
+    "correct_index": 0
+  },
+  {
+    "question_id": "node03:q4",
+    "text": "Which command initializes a Node project?",
+    "options": ["node init", "npm start", "npm init -y", "node create"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "node03:q5",
+    "text": "Express is built on top of which platform?",
+    "options": ["React", "Python", "Node.js", "PHP"],
+    "correct_index": 2
+  }
+]
+
   },
 
   {
@@ -335,15 +448,38 @@
         "text_content": "Lists and dictionaries are powerful data structures. In this lesson, you will learn how to create, update, loop through, and manipulate them."
       }
     ],
-    "quiz": [
-      {
-        "question_id": "py02:q1",
-        "text": "Which keyword is used for creating a function in Python?",
-        "options": ["func", "def", "function", "lambda"],
-        "correct_index": 1,
-          "text_content": "Learn how to define functions using the def keyword, pass parameters, return values, and understand why functions help you reuse code and write cleaner programs."
+   "quiz": [
+  {
+    "question_id": "py02:q1",
+    "text": "Which symbol is used for comments in Python?",
+    "options": ["//", "#", "<!-- -->", "--"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "py02:q2",
+    "text": "Which loop iterates over items of a sequence?",
+    "options": ["while", "for", "repeat", "loop"],
+    "correct_index": 1
+  },
+  {
+    "question_id": "py02:q3",
+    "text": "Which keyword defines a function in Python?",
+    "options": ["function", "define", "def", "fn"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "py02:q4",
+    "text": "What is the output of: type(10)?",
+    "options": ["float", "str", "int", "number"],
+    "correct_index": 2
+  },
+  {
+    "question_id": "py02:q5",
+    "text": "Which of these is a valid Python data type?",
+    "options": ["integer", "float", "character", "double"],
+    "correct_index": 1
+  }
+]
 
-      }
-    ]
   }
 ]
