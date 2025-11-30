@@ -216,7 +216,7 @@ async function renderCourseDetailPage(CourseId) {
                 <h4 class="fw-bold text-primary">${savedScore.correct}/${
       savedScore.total
     }</h4>
-              </div>
+              </div class="course-card>
               <div class="col-4">
                 <p class="mb-0 text-muted">Percentage</p>
                 <h4 class="fw-bold text-info">${savedScore.percentage}%</h4>
@@ -505,6 +505,9 @@ document.addEventListener("click", async function (e) {
 
 
 function renderDashboard(){
+        const saved = JSON.parse(localStorage.getItem("lastQuizScore"));
+        console.log(saved)
+
 
   let dashboardHtml=`
   <div class="container my-5">
@@ -515,8 +518,8 @@ function renderDashboard(){
     
     <div  class="col-md-3 ">
       <div id ="d" class="card shadow-sm text-center p-3 bg-secondary text-white ">
-        <h6 class=" mb-1 text-muted ">Courses Enrolled</h6>
-        <h3 id="coursesCount">0</h3>
+        <h6 class=" mb-1 text-white ">Courses Enrolled</h6>
+        <h3 id="coursesCount">3</h3>
       </div>
     </div>
 
@@ -524,23 +527,23 @@ function renderDashboard(){
     <div class="col-md-3">
       <div id ="d" class="card shadow-sm text-center p-3 bg-warning text-dark"">
         <h6 class="text-muted mb-1">Progress</h6>
-        <h3 id="progressPercent">0%</h3>
+        <h3 id="progressPercent">20%</h3>
       </div>
     </div>
 
     
     <div class="col-md-3">
       <div  id ="d" class="card shadow-sm text-center p-3 bg-info text-white">
-        <h6 class="text-muted mb-1">Last Lesson</h6>
-        <h5 id="lastLesson">N/A</h5>
+        <h6 class="text-black mb-1">Last Lesson</h6>
+        <h5 id="lastLesson">${saved.ccourseId}</h5>
       </div>
     </div>
 
 
     <div class="col-md-3">
       <div  id ="d" class="card shadow-sm text-center p-3 bg-success text-white">
-        <h6 class="text-muted mb-1">Quiz Score</h6>
-        <h3 id="quizScore">—</h3>
+        <h6 class="text-white mb-1">Quiz Score</h6>
+        <h3 id="quizScore">${saved.percentage}%</h3>
       </div>
     </div>
 
