@@ -42,13 +42,13 @@ async function routers() {
       if (hash.startsWith("#lesson=")) {
         const lessonId = hash.split("=")[1];
         aapContainer.innerHTML = await renderLessonPage(lessonId);
-        console.log("lessonID===>", lessonId);
+        // console.log("lessonID===>", lessonId);
         const saved = localStorage.getItem(lessonId);
         const safeId = lessonId.replace(/:/g, "\\:");
 
         const box = document.querySelector(`#checkbox-${safeId}`);
-        console.log(box);
-        console.log("saved===>", saved);
+        // console.log(box);
+        // console.log("saved===>", saved);
         if (box && saved === "true") {
           box.checked = true;
         }
@@ -106,8 +106,8 @@ async function renderHomePage() {
       getTrendingCourses(),
       getCategories(),
     ]);
-    console.log("trendingCourses", trendingCourses);
-    console.log("courseCategories", courseCategories);
+    // console.log("trendingCourses", trendingCourses);
+    // console.log("courseCategories", courseCategories);
     trendingSECHTML = `
     <div class="d-flex flex-column align-items-center justify-content-center mb-2 text-center p-3 p-sm-4 border-top">
     <h1 class="display-5 fw-bold">Trending Courses</h1>
@@ -181,7 +181,7 @@ async function renderCoursesPage() {
     });
     courseCards += `</div>`;
 
-    console.log("courses==>", courses);
+    // console.log("courses==>", courses);
     return courseCards;
   } catch (error) {}
 }
@@ -202,42 +202,86 @@ async function renderCourseDetailPage(CourseId) {
         ? "Passed 💥"
         : "You failed..";
 
-    restHtml += `
-      <div class="container py-3">
-        <div class="card shadow-sm border ${statusClass} mx-auto" style="max-width: 800px;">
-          <div class="card-body">
-            <h3 class="card-title text-center mb-3 fw-bold">${
-              " Your Last Quiz Result=>  " + savedScore.ccourseId ||
+
+restHtml +=`<div class="container py-4">
+  <div class="card shadow-lg mx-auto border-0" style="max-width: 850px;">
+    <div
+      class="card-body p-4 text-center ${statusClass} rounded-3 ${
+        savedScore.percentage >= 50 ? "border-3 border-success" : "border-3 border-danger"
+      }"
+    >
+      <div class="row align-items-center mb-3">
+        <div class="col-12 col-md-2 text-center">
+          ${
+            savedScore.percentage >= 50
+              ? '<i class="bi bi-award-fill display-4 text-success"></i>'
+              : '<i class="bi bi-x-octagon-fill display-4 text-danger"></i>'
+          }
+        </div>
+        <div class="col-12 col-md-10 text-md-start">
+          <h4 class="card-title mb-1 fw-bolder text-dark">
+            ${
+              "Your Last Quiz Result: " + savedScore.ccourseId ||
               "Last Quiz Result"
-            }</h3>
-            <div class="row text-center">
-              <div class="col-4">
-                <p class="mb-0 text-muted">Score</p>
-                <h4 class="fw-bold text-primary">${savedScore.correct}/${
-      savedScore.total
-    }</h4>
-              </div class="course-card>
-              <div class="col-4">
-                <p class="mb-0 text-muted">Percentage</p>
-                <h4 class="fw-bold text-info">${savedScore.percentage}%</h4>
-              </div>
-              <div class="col-4">
-                <p class="mb-0 text-muted">Status</p>
-                <h5 class="fw-bold ${
-                  savedScore.percentage >= 50 ? "text-success" : "text-danger"
-                }">${statusText}</h5>
-              </div>
-            </div>
-          </div>
+            }
+          </h4>
+          <p class="mb-0 text-muted fst-italic">A quick summary of your performance.</p>
         </div>
       </div>
-    `;
+
+      <hr class="my-3" />
+
+      <div class="row justify-content-center text-dark">
+        <div class="col-4 border-end">
+          <p class="mb-1 text-muted small fw-bold">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>Correct Score
+          </p>
+          <h3 class="fw-bolder text-dark">${savedScore.correct} / ${
+            savedScore.total
+          }</h3>
+        </div>
+        <div class="col-4 border-end">
+          <p class="mb-1 text-muted small fw-bold">
+            <i class="bi bi-percent me-1 text-info"></i>Percentage
+          </p>
+          <h3 class="fw-bolder text-dark">${savedScore.percentage}%</h3>
+        </div>
+        <div class="col-4">
+          <p class="mb-1 text-muted small fw-bold">
+            <i class="bi bi-patch-check-fill me-1 ${
+              savedScore.percentage >= 50 ? "text-success" : "text-danger"
+            }"></i>Status
+          </p>
+          <h3
+            class="fw-bolder ${
+              savedScore.percentage >= 50 ? "text-success" : "text-danger"
+            }"
+          >
+            ${statusText}
+          </h3>
+        </div>
+      </div>
+
+      ${
+        savedScore.percentage >= 50
+          ? '<p class="mt-3 mb-0 text-success fw-bold p-2 bg-success bg-opacity-10 rounded">Great job! You passed the quiz. Keep going!</p>'
+          : '<p class="mt-3 mb-0 text-danger fw-bold p-2 bg-danger bg-opacity-10 rounded"> you can try again! Review the course material.</p>'
+      }
+    </div>
+  </div>
+</div>`
+
+
+
+
+
+
   }
   try {
-    console.log("CourseId===>", CourseId);
+    // console.log("CourseId===>", CourseId);
     const courses = await getRawData();
 
-    console.log("courses=====>", courses);
+    // console.log("courses=====>", courses);
     const filteredData = courses.filter((data) => data.id == CourseId);
 
     if (filteredData.length === 0) {
@@ -247,7 +291,7 @@ async function renderCourseDetailPage(CourseId) {
     cardDetails += '<div class="container pb-5">';
 
     filteredData.forEach((data) => {
-      console.log("leassons==>", data?.lessons);
+      // console.log("leassons==>", data?.lessons);
 
       const lessonHtml = data?.lessons
         .map((lsn) => {
@@ -265,7 +309,7 @@ async function renderCourseDetailPage(CourseId) {
         })
         .join("");
 
-      console.log(lessonHtml);
+      // console.log(lessonHtml);
 
       cardDetails += `
         <div class="card shadow-lg mx-auto border-0" style="max-width: 900px;">
@@ -321,9 +365,9 @@ async function renderCourseDetailPage(CourseId) {
 const renderCategoryPage = async (id) => {
   let categoryHtml = "";
   const dedeed = decodeURIComponent(id);
-  console.log(dedeed);
+  // console.log(dedeed);
   const categoreis = await getCategories();
-  console.log("data by id", categoreis[dedeed]);
+  // console.log("data by id", categoreis[dedeed]);
 
   categoreis[dedeed].forEach((d) => {
     categoryHtml += '<div class="d-flex p-4 flex-wrap justify-content-center">';
@@ -345,13 +389,13 @@ async function renderLessonPage(lessonId) {
   let lessonHtml = "";
   try {
     const courses = await getRawData();
-    console.log(courses);
+    // console.log(courses);
     courses.forEach((data) => {
       // console.log(data.lessons)
       const filterLesson = data.lessons.filter(
         (lsn) => lsn.lesson_id === lessonId
       );
-      console.log(filterLesson);
+      // console.log(filterLesson);
       // if(filterLesson)
       filterLesson.length > 0
         ? filterLesson.forEach((sbq) => {
@@ -418,8 +462,8 @@ document.addEventListener("change", (e) => {
     const done = e.target.checked;
     localStorage.setItem(`${id}`, done);
 
-    console.log("id=>", id);
-    console.log("compledted=>", done);
+    // console.log("id=>", id
+    
   }
 });
 
@@ -445,7 +489,6 @@ const renderQuizpage = async (id) => {
   return quizHtml;
 };
 
-// let score = {}
 let quizScore = {};
 
 document.addEventListener("click", async function (e) {
@@ -506,7 +549,8 @@ document.addEventListener("click", async function (e) {
 
 function renderDashboard(){
         const saved = JSON.parse(localStorage.getItem("lastQuizScore"));
-        console.log(saved)
+        // console.log(saved)
+
 
 
   let dashboardHtml=`
@@ -527,7 +571,7 @@ function renderDashboard(){
     <div class="col-md-3">
       <div id ="d" class="card shadow-sm text-center p-3 bg-warning text-dark"">
         <h6 class="text-muted mb-1">Progress</h6>
-        <h3 id="progressPercent">20%</h3>
+        <h3 id="progressPercent">${saved.percentage || "%"}%</h3>
       </div>
     </div>
 
@@ -535,7 +579,7 @@ function renderDashboard(){
     <div class="col-md-3">
       <div  id ="d" class="card shadow-sm text-center p-3 bg-info text-white">
         <h6 class="text-black mb-1">Last Lesson</h6>
-        <h5 id="lastLesson">${saved.ccourseId}</h5>
+        <h5 id="lastLesson">${saved.ccourseId || "Loading..."}</h5>
       </div>
     </div>
 
@@ -543,7 +587,7 @@ function renderDashboard(){
     <div class="col-md-3">
       <div  id ="d" class="card shadow-sm text-center p-3 bg-success text-white">
         <h6 class="text-white mb-1">Quiz Score</h6>
-        <h3 id="quizScore">${saved.percentage}%</h3>
+        <h3 id="quizScore">${saved.percentage || "%"}%</h3>
       </div>
     </div>
 

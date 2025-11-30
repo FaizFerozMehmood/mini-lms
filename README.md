@@ -7,7 +7,7 @@ Deployed on Vercel, this LMS includes Courses, Lessons, Quizzes, Progress Tracki
 
 🌍 Live Demo
 
-🔗 https://mini-lms-ten.vercel.app/#home
+🔗 mini-lms-ten.vercel.app
 
 ✨ Features
 🔹 SPA Architecture
