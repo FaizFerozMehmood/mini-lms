@@ -200,7 +200,7 @@ async function renderCourseDetailPage(CourseId) {
     const statusText =
       savedScore.percentage >= 50
         ? "Passed 💥"
-        : "You failed, but never give up, dude! 💖";
+        : "You failed..";
 
     restHtml += `
       <div class="container py-3">
