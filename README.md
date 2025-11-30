@@ -81,15 +81,19 @@ JSON Data Fetch
 Vercel Deployment
 
 🚀 How to Run Locally
+
 1️⃣ Clone the Project
+
 git clone https://github.com/FaizFerozMehmood/mini-lms.git
 
 2️⃣ Navigate to the folder
+
 cd mini-lms
 
 3️⃣ Start a Local Server
 
 Use VS Code Live Server or any static local server.
+
 
 📁 Folder Structure
 mini-lms/
@@ -109,4 +113,6 @@ mini-lms/
 👤 Author
 
 Faaiz Mahmood
+
+
 GitHub: https://github.com/FaizFerozMehmood
